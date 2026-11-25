@@ -4,8 +4,9 @@ from unittest.mock import Mock
 import pytest
 
 from practicum.bun import Bun
+from practicum.burger import Burger
 from practicum.ingredient import Ingredient
-from practicum.ingredient_types import INGREDIENT_TYPE_FILLING
+from practicum.ingredient_types import INGREDIENT_TYPE_FILLING, INGREDIENT_TYPE_SAUCE
 
 @pytest.fixture
 def bun():
@@ -32,3 +33,15 @@ def make_ingredient():
         return mock
 
     return factory
+
+@pytest.fixture
+def burger_with_three(make_ingredient) -> Burger:
+    """Собрать бургер с ингредиентами в порядке: Котлета, Соус, Начинка."""
+    burger = Burger()
+    for name, price, kind in (
+            ("Котлета", 100, INGREDIENT_TYPE_FILLING),
+            ("Соус", 20, INGREDIENT_TYPE_SAUCE),
+            ("Начинка", 200, INGREDIENT_TYPE_FILLING),
+    ):
+        burger.add_ingredient(make_ingredient(name, price, kind))
+    return burger
