@@ -230,4 +230,4 @@ allure-results/
 setup_project.sh
 prompt.md
 project_dump.md
-
+./htmlcov
